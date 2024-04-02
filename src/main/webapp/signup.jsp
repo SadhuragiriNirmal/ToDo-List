@@ -18,27 +18,27 @@
             <tbody>
 			   <tr>
 				   <td><label for = "id">User Id</label></td>
-				   <td><input type="text" name = "userid" id = "uid"></td>
+				   <td><input type="text" name = "userid" id = "uid" required="required"></td>
 			   </tr>
 			   <tr>
 				   <td><label for="name">Name</label></td>
-				   <td><input type="text" name = "username" id = "name"></td>
+				   <td><input type="text" name = "username" id = "name" required="required"></td>
 			   </tr>  
 			   <tr>
 				   <td><label for="email">Email</label></td>
-				   <td><input type="email" name = "useremail" id = "email"></td>
+				   <td><input type="email" name = "useremail" id = "email" required="required"></td>
 			   </tr>  
 			   <tr>
 				   <td><label for="contact">Contact</label></td>
-				   <td><input type="text" name = "usercontact" id = "contact"></td>
+				   <td><input type="text" name = "usercontact" id = "contact" required="required"></td>
 			   </tr>
 			   <tr>
 				   <td><label for = "pass">Password</label></td>
-				   <td><input type="password" name = "userpass" id ="pass"></td>
+				   <td><input type="password" name = "userpass" id ="pass" required="required"></td>
 			   </tr>
 			   <tr>
 				   <td><label for = "image">Uplode Image</label></td>
-				   <td><input type="file" name = "userimage" id ="image"></td>
+				   <td><input type="file" name = "userimage" id ="image" required="required"></td>
 			   </tr>
 			</tbody>			
 		</table>

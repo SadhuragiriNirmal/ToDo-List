@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    	 <header>
+     <header>
         
     </header>
     <h1>Login</h1>
@@ -19,12 +19,12 @@
 			     
 			   <tr>
 				   <td><label for="email">Email</label></td>
-				   <td><input type="email" name = "useremail" id = "email"></td>
+				   <td><input type="email" name = "useremail" id = "email" required="required"></td>
 			   </tr>  
 			   
 			   <tr>
 				   <td><label for = "pass">Password</label></td>
-				   <td><input type="password" name = "userpass" id ="pass"></td>
+				   <td><input type="password" name = "userpass" id ="pass" required="required"></td>
 			   </tr>
 			   
 			</tbody>			

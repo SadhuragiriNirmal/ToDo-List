@@ -30,6 +30,7 @@
      <h3>Eamil: <%= useremail%></h3>
      <h3>Mobile: <%= usercontact%></h3>
      <img alt="" src="data:image/jpeg;base64,<%= image%>" width="180" height="200">
-
+      
+      <a href="addtask.jsp">Add Task</a>
 </body>
 </html>
