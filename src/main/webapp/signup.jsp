@@ -8,8 +8,11 @@
 <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-	 <header>
-        
+	  <header>
+        <nav>
+			<a href="index.jsp" id="sh">ToDo</a>
+			<a href="login.jsp" id="hs">Login</a>
+		</nav>
     </header>
     <h1>SignUp</h1>
     <div  id="sign">

@@ -9,10 +9,13 @@
 </head>
 <body>
      <header>
-        
+        <nav>
+			<a href="index.jsp" id="sh">ToDo</a>
+			<a href="signup.jsp" id="hs">SignUp</a>
+		</nav>
     </header>
     <h1>Login</h1>
-    <div  id="sign">
+    <div  id="login">
     <form action="userlogin" method="post">
 		<table>
             <tbody>

@@ -1,3 +1,6 @@
+<%@page import="dto.Task"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dto.User"%>
@@ -8,11 +11,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Todo:Home</title>
+<link rel="stylesheet" href="home.css">
 </head>
 <body>
      
-    
-
      <% 
      
         HttpSession  ses = request.getSession();
@@ -25,12 +27,112 @@
        
         
      %>
-     
-     <h1>Welcome <%= username%></h1>
-     <h3>Eamil: <%= useremail%></h3>
-     <h3>Mobile: <%= usercontact%></h3>
-     <img alt="" src="data:image/jpeg;base64,<%= image%>" width="180" height="200">
-      
-      <a href="addtask.jsp">Add Task</a>
+       <header id="navbar">
+        <nav>
+            <a href="index.jsp" id="nac1" class="nitem1">ToDO</a>
+            <a href="logout.jsp" id="nac2">LogOut</a>
+        </nav>
+    </header>
+    <section id="container">
+        <!-- user info -->
+    <div id="uio">
+        <div id="ui">
+            <img alt="" src="data:image/jpeg;base64,<%= image%>" id="img1">
+            <div>
+
+                <p>Name :</p><p><%= username%></p>
+        
+                <p>Email id :</p><p><%= useremail%></p>
+
+                <p>Mobile no :</p><p><%= usercontact%></p>
+
+            </div>
+              <form action="addtask.jsp" id ="add"><button name="tid" class="but">Add</button></form>
+            <img src="assert/projektmanagement.png" alt="" id="img2">
+        </div>
+    </div>
+    </section>
+ <section id="container2">
+        <!-- task table -->
+        <div id="tt">
+            <h2>Tasks</h2>
+            <table>
+                <thead>
+                    <tr>
+                       <th>Id</th>
+                       <th>Title</th>
+                       <th>Descripition</th>
+                       <th>priority</th>
+                       <th>Due date</th>
+                       <th>status</th>
+                       <th colspan="2">Edit</th>
+                    </tr>
+                </thead>
+                 <% List<Task> tasks = (List) request.getAttribute("tasks");
+                    
+                    
+      				for(Task task:tasks){
+      			 %>
+                <tbody>
+                    <tr>
+            			<td><%= task.getTaskid()%></td>
+            			<td><%= task.getTasktitle()%></td>
+            			<td><%= task.getTaskdescripition()%></td>
+            			<td><%= task.getTaskpriority()%></td>
+            			<td><%= task.getTaskduedate()%></td>
+            			<td><%= task.getTaskstatus()%></td>
+            			<td style="text-align: center;"><form action="delete"><button name="tid" value="<%=task.getTaskid()%>" class="but">Delete</button></form></td>
+            			<td style="text-align: center;"><form action="update.jsp"><button name="tid" value="<%=task.getTaskid()%>" class="but">Update</button></form></td>
+                    </tr>
+                </tbody>
+                 <% } 
+                 %>
+                 
+            </table>
+            <p></p>
+        </div>
+    </section>
+    <footer>
+        <section>
+            <div id="a1">
+                 <h2>LEARNING</h2>
+                 <div class="bar"></div>
+                 <p>
+                     Create a To Do List
+                     <br>
+                     Plan and share tasks
+                     <br>
+                     Create Kanban Board
+                     <br>
+                     Project management
+                     <br>
+                     File Upload
+                     <br>
+                     Write comments
+                 </p>
+            </div>
+            <div id="a2">
+             <h2>LINKS</h2>
+              <div class="bar"></div>
+              <p>
+                 Imprint
+                 <br>
+                 Privacy
+                 <br>
+                 Terms of use
+              </p>
+ 
+            </div>
+            <div id="a3">
+             <h1>This makes collaboration fun and the project a success.</h1>
+             <div class="bar"></div>
+             <h3>Powered By MSG Keni Tech</h3>
+            </div>
+ 
+         </section>
+
+    </footer>   
+       
+       <script src="index.js"></script>
 </body>
 </html>

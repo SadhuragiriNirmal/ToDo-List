@@ -10,7 +10,10 @@
 <body>
     
      <header>
-        
+        <nav>
+			<a href="index.jsp" id="sh">ToDo</a>
+			<a href="home.jsp" id="hs">Back</a>
+		</nav>
     </header>
     <h1>Add Task</h1>
     <div  id="sign">
