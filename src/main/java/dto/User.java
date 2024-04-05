@@ -14,7 +14,7 @@ public class User {
 	
 	public User() {
 	}
-	public User(int userid, String username, String useremail, long usercontact, String userpassword,
+	public User(String username, String useremail, long usercontact, String userpassword,
 			byte[] userimage) {
 		
 		this.userid = userid;

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,15 @@ public class Dao {
 			return con;
 	}
 	
-	public static int saveUser(User user) throws SQLException, ClassNotFoundException {
+	//Add User 
+	public static int  saveUser(User user) throws SQLException, ClassNotFoundException {
+		
+		int userid = Dao.genUserid();
+		user.setUserid(userid);
 		
 		Connection con = Dao.getConnection();
 		PreparedStatement pst = con.prepareStatement("insert into user values(?,?,?,?,?,?)");
-		pst.setInt(1, user.getUserid());
+		pst.setInt(1, userid);
 		pst.setString(2, user.getUsername());
 		pst.setString(3, user.getUseremail());
 		pst.setLong(4, user.getUsercontact());
@@ -48,6 +53,21 @@ public class Dao {
 		return res;
 	}
 	
+	//User id generator
+	public static int genUserid() throws ClassNotFoundException, SQLException {
+			
+		Connection con = getConnection();
+	    Statement st = con.createStatement();
+			
+		ResultSet rs = st.executeQuery("select count(*) from user");
+		int res = 0;
+		if(rs.next())
+			res = rs.getInt(1);
+		return res + 1;
+			
+	}
+	
+	//Get user data by email
 	public User findByEmail(String email) throws ClassNotFoundException, SQLException {
 		
 		Connection con = getConnection();
@@ -81,8 +101,12 @@ public class Dao {
 		
 	}
 	
+	//Add tasks
 	public int createTask(Task task) throws ClassNotFoundException, SQLException {
 		
+		int taskid = Dao.genTaskid();
+		Dao.updTaskid(taskid);
+		task.setTaskid(taskid);
 		Connection con = getConnection();
 		PreparedStatement pst = con.prepareStatement("insert into task values(?,?,?,?,?,?,?)");
 		
@@ -101,6 +125,42 @@ public class Dao {
 		
 	}
 	
+	//Task id generator
+		public static int genTaskid() throws ClassNotFoundException, SQLException {
+			
+			Connection con = getConnection();
+			Statement st = con.createStatement();
+			
+			ResultSet rs = st.executeQuery("select taskid from tidgen");
+			
+			int res = 0;
+			if(rs.next()) {
+			
+				res = rs.getInt(1);
+				return res + 1;
+			}
+			else {
+				
+				return res+1;
+			}
+			
+		}
+		
+		//Task id auto geneartor support
+		public static void updTaskid(int taskid) throws ClassNotFoundException, SQLException {
+			
+			Connection con = getConnection();
+			PreparedStatement pst = con.prepareStatement("update tidgen set taskid = ? where primk = ?");
+			
+			pst.setInt(1, taskid);
+			pst.setString(2,"tid");
+			
+			pst.executeUpdate();
+			
+			
+	}
+		
+	//Get tasks by user id
 	public List<Task> getallTaskByuserid(int userid) throws ClassNotFoundException, SQLException{
 		
 		Connection con = getConnection();
@@ -121,6 +181,7 @@ public class Dao {
 		return tasks;
 	}
 	
+	//Delete by id
 	public int deleteBytaskid(int tid) throws SQLException, ClassNotFoundException {
 		
 		Connection con = getConnection();
@@ -133,12 +194,26 @@ public class Dao {
 		return res;
 	}
 	
-//	public int updateTask(Task task) throws ClassNotFoundException, SQLException {
-//		
-//		Connection con = getConnection();
-//		PreparedStatement pst = con.prepareStatement("update task set ");
-//		
-//	}
+	//update task
+	public int updateTask(Task task) throws ClassNotFoundException, SQLException {
+		
+		Connection con = getConnection();
+		PreparedStatement pst = con.prepareStatement("update task set tasktitle = ?, taskdescription = ?, taskpriority = ?, taskduedate = ?, taskstatus = ? where taskid = ?");
+		
+		System.out.println(task.getTaskduedate());
+		pst.setString(1, task.getTasktitle());
+		pst.setString(2, task.getTaskdescripition());
+		pst.setString(3, task.getTaskpriority());
+		pst.setString(4, task.getTaskduedate());
+		pst.setString(5, task.getTaskstatus());
+		pst.setInt(6, task.getTaskid());
+		
+		int res = pst.executeUpdate();
+		
+		return res;
+		
+		
+	}
 	
-
-}
+	
+}	

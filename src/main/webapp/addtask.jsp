@@ -21,10 +21,6 @@
 		<table>
             <tbody>
 			   <tr>
-				   <td><label for = "tid">Task Id</label></td>
-				   <td><input type="text" name = "taskid" id = "tid" required="required"></td>
-			   </tr>
-			   <tr>
 				   <td><label for="title">Task Title</label></td>
 				   <td><input type="text" name = "tasktitle" id = "title" required="required"></td>
 			   </tr>  
@@ -47,7 +43,7 @@
 			   </tr>
 			   <tr>
 				   <td><label for = "duedate">Due date</label></td>
-				   <td><input type="date" name = "tsakduedate" id ="duedate" required="required"></td>
+				   <td><input type="date" name = "taskduedate" id ="duedate" required="required"></td>
 			   </tr>
 			</tbody>			
 		</table>

@@ -18,12 +18,11 @@ import dto.User;
 public class Delete extends HttpServlet{
 
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		int tid = Integer.parseInt(req.getParameter("tid"));
 		
 		Dao dao = new Dao();
-		
 		try {
 			
 			int res = dao.deleteBytaskid(tid);

@@ -20,18 +20,18 @@ public class AddTask  extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		int taskid = Integer.parseInt(req.getParameter("taskid"));
+		
 		String tasktitle = req.getParameter("tasktitle");
 		String taskdescription = req.getParameter("taskdescription");
 		String taskpriority = req.getParameter("taskpriority");
-		String tsakduedate = req.getParameter("tsakduedate");
+		String taskduedate = req.getParameter("taskduedate");
 		
 		User user = (User) req.getSession().getAttribute("user");
 		int userid = user.getUserid();
 		
 
 		
-		Task task = new Task(taskid, tasktitle, taskdescription, taskpriority, tsakduedate, "pending", userid);
+		Task task = new Task(0,tasktitle, taskdescription, taskpriority, taskduedate,"pending",userid);
 		
 		Dao dao = new Dao();
 		

@@ -20,10 +20,6 @@
 		<table>
             <tbody>
 			   <tr>
-				   <td><label for = "id">User Id</label></td>
-				   <td><input type="text" name = "userid" id = "uid" required="required"></td>
-			   </tr>
-			   <tr>
 				   <td><label for="name">Name</label></td>
 				   <td><input type="text" name = "username" id = "name" required="required"></td>
 			   </tr>  

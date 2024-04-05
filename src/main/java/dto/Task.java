@@ -11,7 +11,7 @@ public class Task {
 	private int userid;
 	
 	
-	public Task(int taskid, String tasktitle, String taskdescripition, String taskpriority, String taskduedate,
+	public Task(int taskid,String tasktitle, String taskdescripition, String taskpriority, String taskduedate,
 			String taskstatus, int userid) {
 		this.taskid = taskid;
 		this.tasktitle = tasktitle;

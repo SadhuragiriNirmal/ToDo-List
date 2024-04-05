@@ -59,7 +59,7 @@
             <table>
                 <thead>
                     <tr>
-                       <th>Id</th>
+                       <th>SIno</th>
                        <th>Title</th>
                        <th>Descripition</th>
                        <th>priority</th>
@@ -70,24 +70,38 @@
                 </thead>
                  <% List<Task> tasks = (List) request.getAttribute("tasks");
                     
-                    
+                    int num = 1;
+                    if(!tasks.isEmpty()){
       				for(Task task:tasks){
       			 %>
                 <tbody>
                     <tr>
-            			<td><%= task.getTaskid()%></td>
+            			<td><%= num++%></td>
             			<td><%= task.getTasktitle()%></td>
             			<td><%= task.getTaskdescripition()%></td>
             			<td><%= task.getTaskpriority()%></td>
             			<td><%= task.getTaskduedate()%></td>
             			<td><%= task.getTaskstatus()%></td>
-            			<td style="text-align: center;"><form action="delete"><button name="tid" value="<%=task.getTaskid()%>" class="but">Delete</button></form></td>
-            			<td style="text-align: center;"><form action="update.jsp"><button name="tid" value="<%=task.getTaskid()%>" class="but">Update</button></form></td>
+            			<td style="text-align: center;"><form action="delete" method="post"><button name="tid" value="<%=task.getTaskid()%>" class="but">Delete</button></form></td>
+            			<td style="text-align: center;">
+            			<form action="update.jsp" method="post">
+            				<button name="tid" value="<%=task.getTaskid()%>" class="but">Update</button>
+            			    <input type="hidden" name = "tasktitle" value="<%=task.getTasktitle()%>">
+            			    <input type="hidden" name = "taskdescription" value="<%=task.getTaskdescripition()%>">
+                            <input type="hidden" name = "taskpriority" value="<%=task.getTaskpriority()%>"> 			
+            			    <input type="hidden" name = "taskduedate" value="<%=task.getTaskduedate()%>">
+            			    <input type="hidden" name = "taskstatus" value="<%=task.getTaskstatus()%>">
+            			</form>
+            			</td>
                     </tr>
                 </tbody>
                  <% } 
-                 %>
-                 
+                    }
+                    else{
+                    	
+                    %>
+                    <h3 style="text-align: center; color: blue;">No Task Avilable</h3>
+                 <% }%>
             </table>
             <p></p>
         </div>

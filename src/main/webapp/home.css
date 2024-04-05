@@ -108,7 +108,7 @@ nav>#nac2:hover{
     grid-row: 50px 50px 50px;
     justify-content: center;
     align-items: center;
-    background-color: goldenrod;
+    background-color: rgb(128, 94, 11);;
     color: #FFFFFF;
     border-radius: 10px;
 }
