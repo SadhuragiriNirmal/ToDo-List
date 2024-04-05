@@ -8,6 +8,7 @@ pageEncoding="ISO-8859-1"%>
 <link rel="stylesheet" href="addtask.css">
 </head>
 <body>
+
     
      <% 
         
@@ -20,6 +21,7 @@ pageEncoding="ISO-8859-1"%>
 		String taskstatus = request.getParameter("taskstatus");
 		
      %>
+     
      <header>
         <nav>
 			<a href="index.jsp" id="sh">ToDo</a>
@@ -39,7 +41,35 @@ pageEncoding="ISO-8859-1"%>
 				   <td><label for="dis">Task Description</label></td>
 				   <td><input type="text" name = "taskdescription" id = "dis" required="required" value="<%=taskdescription%>"></td>
 			   </tr>
-			   <tr><td colspan="2"><%=taskpriority%><td></tr>  
+			<% if(taskpriority.equals("low")) { %>  
+			   <tr>
+				   <td><label for="low">Low Priority</label></td>
+				   <td><input type="radio"  name = "taskpriority" id = "low" value="low" required="required" checked="checked"></td>
+			   </tr>
+			   <tr>
+				   <td><label for="medium">Medium Priority</label></td>
+				   <td><input type="radio" name = "taskpriority" id = "medium" value="medium" required="required"></td>
+				   
+			   </tr>
+			   <tr>
+				   <td><label for="high">High Priority</label></td>
+				   <td><input type="radio" name = "taskpriority" id = "high" value="high" required="required"></td>
+			   </tr>
+			<% } else if(taskpriority.equals("medium")) { %> 
+			   <tr>
+				   <td><label for="low">Low Priority</label></td>
+				   <td><input type="radio"  name = "taskpriority" id = "low" value="low" required="required"></td>
+			   </tr>
+			   <tr>
+				   <td><label for="medium">Medium Priority</label></td>
+				   <td><input type="radio" name = "taskpriority" id = "medium" value="medium" required="required" checked="checked"></td>
+				   
+			   </tr>
+			   <tr>
+				   <td><label for="high">High Priority</label></td>
+				   <td><input type="radio" name = "taskpriority" id = "high" value="high" required="required"></td>
+			   </tr>
+			<% }else if(taskpriority.equals("high")) { %>  
 			   <tr>
 				   <td><label for="low">Low Priority</label></td>
 				   <td><input type="radio"  name = "taskpriority" id = "low" value="low" required="required"></td>
@@ -51,8 +81,9 @@ pageEncoding="ISO-8859-1"%>
 			   </tr>
 			   <tr>
 				   <td><label for="high">High Priority</label></td>
-				   <td><input type="radio" name = "taskpriority" id = "high" value="high" required="required"></td>
+				   <td><input type="radio" name = "taskpriority" id = "high" value="high" required="required" checked="checked"></td>
 			   </tr>
+			<% } %>    
 			   <tr>
 				   <td><label for = "duedate">Due date</label></td>
 				   <td><input type="date" name = "taskduedate" id ="duedate" required="required" value="<%=taskduedate%>"></td>

@@ -47,8 +47,8 @@
                 <p>Mobile no :</p><p><%= usercontact%></p>
 
             </div>
-              <form action="addtask.jsp" id ="add"><button name="tid" class="but">Add</button></form>
             <img src="assert/projektmanagement.png" alt="" id="img2">
+            <form action="addtask.jsp" id ="add"><button name="tid" class="but" id="pluse">+</button></form>
         </div>
     </div>
     </section>

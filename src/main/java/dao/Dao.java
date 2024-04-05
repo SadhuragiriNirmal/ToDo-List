@@ -59,7 +59,7 @@ public class Dao {
 		Connection con = getConnection();
 	    Statement st = con.createStatement();
 			
-		ResultSet rs = st.executeQuery("select count(*) from user");
+		ResultSet rs = st.executeQuery("select max(userid) from user");
 		int res = 0;
 		if(rs.next())
 			res = rs.getInt(1);
@@ -105,7 +105,7 @@ public class Dao {
 	public int createTask(Task task) throws ClassNotFoundException, SQLException {
 		
 		int taskid = Dao.genTaskid();
-		Dao.updTaskid(taskid);
+	
 		task.setTaskid(taskid);
 		Connection con = getConnection();
 		PreparedStatement pst = con.prepareStatement("insert into task values(?,?,?,?,?,?,?)");
@@ -126,40 +126,26 @@ public class Dao {
 	}
 	
 	//Task id generator
-		public static int genTaskid() throws ClassNotFoundException, SQLException {
+    public static int genTaskid() throws ClassNotFoundException, SQLException {
 			
-			Connection con = getConnection();
-			Statement st = con.createStatement();
+		Connection con = getConnection();
+		Statement st = con.createStatement();
 			
-			ResultSet rs = st.executeQuery("select taskid from tidgen");
+		ResultSet rs = st.executeQuery("select max(taskid) from task");
 			
-			int res = 0;
-			if(rs.next()) {
+		int res = 0;
+		if(rs.next()) {
 			
-				res = rs.getInt(1);
-				return res + 1;
-			}
-			else {
-				
-				return res+1;
-			}
-			
+			res = rs.getInt(1);
+			return res + 1;
 		}
-		
-		//Task id auto geneartor support
-		public static void updTaskid(int taskid) throws ClassNotFoundException, SQLException {
-			
-			Connection con = getConnection();
-			PreparedStatement pst = con.prepareStatement("update tidgen set taskid = ? where primk = ?");
-			
-			pst.setInt(1, taskid);
-			pst.setString(2,"tid");
-			
-			pst.executeUpdate();
-			
+		else {
+				
+			return 0;
+		}
 			
 	}
-		
+				
 	//Get tasks by user id
 	public List<Task> getallTaskByuserid(int userid) throws ClassNotFoundException, SQLException{
 		
@@ -200,7 +186,7 @@ public class Dao {
 		Connection con = getConnection();
 		PreparedStatement pst = con.prepareStatement("update task set tasktitle = ?, taskdescription = ?, taskpriority = ?, taskduedate = ?, taskstatus = ? where taskid = ?");
 		
-		System.out.println(task.getTaskduedate());
+		
 		pst.setString(1, task.getTasktitle());
 		pst.setString(2, task.getTaskdescripition());
 		pst.setString(3, task.getTaskpriority());

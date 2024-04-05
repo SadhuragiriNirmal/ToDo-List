@@ -84,7 +84,7 @@ nav>#nac2:hover{
     height: 300px;
     display: flex;
     padding-top: 50px;
-    gap: 30px;
+    gap: 50px;
     padding-left: 50px;
     background-color: #352791;
     border-radius: 75px;
@@ -115,8 +115,14 @@ nav>#nac2:hover{
 #add{
 	
 	
-	padding-top: 100px;
+	padding-top: 235px;
 	
+}
+#pluse{
+	
+	font-size: xx-large;
+	border-radius: 100%;
+	width: 40px;
 }
 #ui>#img2{
 
