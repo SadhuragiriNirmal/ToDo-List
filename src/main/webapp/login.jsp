@@ -34,13 +34,15 @@
 		</table>
         <div id="s1">
         <input id ="submit" type = "submit" value="Login">
-        <% String pass = (String)request.getAttribute("message"); 
+       
+    	</div>
+    	<% String pass = (String)request.getAttribute("message"); 
         if(pass != null){
         %>
-         <h4 style="color:blue; padding-top: 10px"><%= pass%></h4>
+         <h4 style="color:red;padding-top: 30px; padding-left: 75px" ><%= pass%></h4>
      <%} %>
-    </div>
     </form>
+     
     </div>
     
     <footer>

@@ -10,27 +10,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Todo:Home</title>
 <link rel="stylesheet" href="home.css">
 </head>
 <body>
+
      
      <% 
-     
+     	response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
         HttpSession  ses = request.getSession();
         User u = (User) ses.getAttribute("user");
-        int userid = u.getUserid();
-        String username = u.getUsername();
-        String useremail = u.getUseremail();
-        long usercontact = u.getUsercontact();
-        String image = new String(Base64.getEncoder().encode(u.getUserimage()));
-       
+        if(u == null) response.sendRedirect("login.jsp");
+        else{
+	        
+        	int userid = u.getUserid();
+	        String username = u.getUsername();
+	        String useremail = u.getUseremail();
+	        long usercontact = u.getUsercontact();
+	        String image = new String(Base64.getEncoder().encode(u.getUserimage()));
+        
         
      %>
        <header id="navbar">
         <nav>
             <a href="index.jsp" id="nac1" class="nitem1">ToDO</a>
-            <a href="logout.jsp" id="nac2">LogOut</a>
+            <a href="logout" id="nac2">LogOut</a>
         </nav>
     </header>
     <section id="container">
@@ -68,12 +77,13 @@
                        <th colspan="2">Edit</th>
                     </tr>
                 </thead>
-                 <% List<Task> tasks = (List) request.getAttribute("tasks");
+                 <% List<Task> tasks = (List)request.getAttribute("tasks");
                     
                     int num = 1;
                     if(!tasks.isEmpty()){
       				for(Task task:tasks){
-      			 %>
+      				
+      			%>
                 <tbody>
                     <tr>
             			<td><%= num++%></td>
@@ -101,7 +111,9 @@
                     	
                     %>
                     <h3 style="text-align: center; color: blue;">No Task Avilable</h3>
-                 <% }%>
+                 <%
+                    }
+                    }%>
             </table>
             <p></p>
         </div>

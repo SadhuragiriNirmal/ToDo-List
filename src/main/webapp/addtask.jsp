@@ -1,3 +1,4 @@
+<%@page import="dto.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,10 +10,18 @@
 </head>
 <body>
     
+      <%
+      
+        response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+      	HttpSession  ses = request.getSession();
+      	User u = (User) ses.getAttribute("user");
+      	if(u == null) response.sendRedirect("login.jsp");
+     
+      %>
      <header>
         <nav>
 			<a href="index.jsp" id="sh">ToDo</a>
-			<a href="home.jsp" id="hs">Back</a>
+			<a href="back" id="hs">Back</a>
 		</nav>
     </header>
     <h1>Add Task</h1>

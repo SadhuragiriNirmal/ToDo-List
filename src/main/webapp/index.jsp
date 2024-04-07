@@ -1,3 +1,4 @@
+<%@page import="dto.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -16,6 +17,14 @@
             <a id="nac1" class="nitem1" href="#home">Home</a>
             <a id="nac2" class="nitem1" href="#testimonial">Testimonial</a>
             <a id="nac3" class="nitem1" href="#about">About</a>
+            <% 
+              
+               HttpSession ses = request.getSession();
+               User u = (User) ses.getAttribute("user");
+               if(u != null) {
+            %>
+            <a id="nac3" class="nitem1" href="back">Tasks</a>
+            <%} %>
         </nav>
         <section>
             <a id="nac4" class="nitem2" href="signup.jsp">SignUp</a>

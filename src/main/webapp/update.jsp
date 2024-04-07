@@ -1,3 +1,4 @@
+<%@page import="dto.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,21 +12,27 @@ pageEncoding="ISO-8859-1"%>
 
     
      <% 
-        
-        int taskid = Integer.parseInt(request.getParameter("tid")); 
      
-        String tasktitle = request.getParameter("tasktitle");
-		String taskdescription = request.getParameter("taskdescription");
-		String taskpriority = request.getParameter("taskpriority");
-		String taskduedate = request.getParameter("taskduedate");
-		String taskstatus = request.getParameter("taskstatus");
+     	response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+	   	HttpSession  ses = request.getSession();
+	   	User u = (User) ses.getAttribute("user");
+	   	if(u == null) response.sendRedirect("login.jsp");
+  
+	   	else{
+	        
+	   		int taskid = Integer.parseInt(request.getParameter("tid"));
+	        String tasktitle = request.getParameter("tasktitle");
+			String taskdescription = request.getParameter("taskdescription");
+			String taskpriority = request.getParameter("taskpriority");
+			String taskduedate = request.getParameter("taskduedate");
+			String taskstatus = request.getParameter("taskstatus");
 		
      %>
      
      <header>
         <nav>
 			<a href="index.jsp" id="sh">ToDo</a>
-			<a href="home.jsp" id="hs">Back</a>
+			<a href="back" id="hs">Back</a>
 		</nav>
     </header>
     <h1>Update Task</h1>
@@ -91,8 +98,17 @@ pageEncoding="ISO-8859-1"%>
 			   </tr>
 			   <tr>
 				   <td><label for="status">Task Status</label></td>
-				   <td><input type="text" name = "taskstatus" id = "status" required="required" value="<%=taskstatus%>"></td>
-				   <td><input type="hidden" name ="tid" value=<%=taskid%>></td>
+				   <td>
+				      <select name = "taskstatus" id = "status" required="required" value="">
+				      
+				       <option value="<%=taskstatus%>"><%=taskstatus%></option>
+      				   <option value="Not initiated">Not initiated</option>
+      				   <option value="In progress">In progress</option>
+      				   <option value="Completed">Completed</option>
+				      
+				      </select>
+				   </td>
+				   <td><input type="hidden" name ="tid" value=<%=taskid%>></td><%} %>
 			   </tr>
 			</tbody>			
 		</table>
