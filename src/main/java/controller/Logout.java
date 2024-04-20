@@ -20,7 +20,7 @@ public class Logout extends HttpServlet{
 		HttpSession ses = req.getSession(false);
 		ses.removeAttribute("user");
 		ses.invalidate();
-		resp.sendRedirect("login.jsp");
+		req.getRequestDispatcher("login.jsp").include(req, resp);
 	}
 
 }

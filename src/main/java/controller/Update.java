@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import dto.Task;
@@ -27,7 +28,8 @@ public class Update extends HttpServlet{
 		String taskduedate = req.getParameter("taskduedate");
 		String taskstatus = req.getParameter("taskstatus");
 		
-		User u = (User) req.getSession().getAttribute("user");
+		HttpSession ses = req.getSession();
+		User u = (User) ses.getAttribute("user");
 		
 	    Task task = new Task(taskid, tasktitle, taskdescription, taskpriority, taskduedate, taskstatus, u.getUserid());
 		
@@ -41,8 +43,10 @@ public class Update extends HttpServlet{
 				
 				User user = (User) req.getSession().getAttribute("user");
 				List<Task> tasks = dao.getallTaskByuserid(user.getUserid());
-				req.setAttribute("tasks", tasks);
-				req.getRequestDispatcher("home.jsp").include(req, resp);
+				List<Integer> tasksDid = dao.getDelid();
+				ses.setAttribute("tasksDid", tasksDid);
+				ses.setAttribute("tasks", tasks);
+				resp.sendRedirect("home.jsp");
 			}
 			else {
 				

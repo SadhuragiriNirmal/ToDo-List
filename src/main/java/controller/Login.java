@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import dto.Task;
@@ -31,10 +32,16 @@ public class Login extends HttpServlet{
 				
 				if(u.getUserpassword().equals(password)) {
 					
+					
 					List<Task> tasks = dao.getallTaskByuserid(u.getUserid());
-					req.setAttribute("tasks", tasks);
-					//session object created
-					req.getSession().setAttribute("user",u);
+					
+					List<Integer> tasksDid = dao.getDelid();
+					
+					//session object create
+					HttpSession ses = req.getSession();
+					ses.setAttribute("user",u);
+					ses.setAttribute("tasks", tasks);
+					ses.setAttribute("tasksDid", tasksDid);
 					req.getRequestDispatcher("home.jsp").include(req, resp);
 				}
 				else {

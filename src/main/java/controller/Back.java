@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Dao;
 import dto.Task;
@@ -23,10 +24,13 @@ public class Back extends HttpServlet {
 	   Dao dao = new Dao();
 	   try {
 	
-			User user = (User) req.getSession().getAttribute("user");
+		    HttpSession ses = req.getSession();
+			User user = (User) ses.getAttribute("user");
 			List<Task> tasks = dao.getallTaskByuserid(user.getUserid());
-			req.setAttribute("tasks", tasks);
-			req.getRequestDispatcher("home.jsp").include(req, resp);
+			List<Integer> tasksDid = dao.getDelid();
+			ses.setAttribute("tasksDid", tasksDid);
+			ses.setAttribute("tasks", tasks);
+		    resp.sendRedirect("home.jsp");
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {

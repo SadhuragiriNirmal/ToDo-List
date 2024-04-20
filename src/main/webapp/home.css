@@ -11,6 +11,7 @@ header{
     background-color:#352791;
     position: sticky;
     top: 0px;
+    z-index: 3;
 }
 nav{
 
@@ -20,7 +21,7 @@ nav{
     justify-content: flex-start;
     align-items: center;
     padding-left: 30px;
-    gap: 85%;
+    gap:85%;
 }
 nav>#nac1{
 
@@ -99,7 +100,7 @@ nav>#nac2:hover{
     overflow: hidden;
     
 }
-#ui>div{
+#ui>#info{
 
     height: 250px;
     width: 400px;
@@ -115,7 +116,10 @@ nav>#nac2:hover{
 #add{
 	
 	
-	padding-top: 235px;
+	display: flex;
+	flex-direction: column;
+	gap: 220px;
+	z-index: 2;
 	
 }
 #pluse{

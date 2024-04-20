@@ -177,6 +177,9 @@ public class Dao {
 		
 		int res = pst.executeUpdate();
 		
+		Dao dao = new Dao();
+		dao.delbinId(tid);
+		
 		return res;
 	}
 	
@@ -201,5 +204,83 @@ public class Dao {
 		
 	}
 	
+	//inseret the bin id
+	public int delidInsert(int taskid) throws ClassNotFoundException, SQLException {
+		
+		Connection con = getConnection();
+		PreparedStatement pst = con.prepareStatement("insert into bin values(?)");
+		
+		pst.setInt(1, taskid);
+		int res = pst.executeUpdate();
+		
+		return res;
+	}
+	
+	//get bin deleted id 
+   public List getDelid() throws ClassNotFoundException, SQLException {
+		
+		Connection con = getConnection();
+		Statement st = con.createStatement();
+		
+		
+		ResultSet rs = st.executeQuery("select * from bin");
+		
+		List<Integer> tasksDid = new ArrayList<Integer>();
+		
+		while(rs.next()) {
+			
+			tasksDid.add(rs.getInt(1));
+		}
+		
+		return tasksDid;
+	}
+   
+     //delete bin id
+	 public int delbinId(int taskid) throws ClassNotFoundException, SQLException {
+		
+		Connection con = getConnection();
+		PreparedStatement pst = con.prepareStatement("delete from bin where delid = ?");
+		
+		pst.setInt(1, taskid);
+		int res = pst.executeUpdate();
+		
+		return res;
+	}
+	 
+	 
+	 //get all task
+	 public List getallTask() throws SQLException, ClassNotFoundException {
+		 
+
+			Connection con = getConnection();
+			Statement st = con.createStatement();
+		
+			ResultSet rs = st.executeQuery("select * from task");
+			List<Task> tasks = new ArrayList<Task>();
+			
+			while(rs.next()) {
+				
+				Task task = new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+			
+				tasks.add(task);
+			}
+			
+			return tasks;
+			
+		 }
+	 
+    //auto update priority
+	 public int updatePriority(String priority, int taskid) throws ClassNotFoundException, SQLException {
+			
+			Connection con = getConnection();
+			PreparedStatement pst = con.prepareStatement("update task set taskpriority = ? where taskid = ?");
+			
+			pst.setString(1, priority);
+			pst.setInt(2, taskid);
+			int res = pst.executeUpdate();
+			
+			return res;
+		}
+    
 	
 }	

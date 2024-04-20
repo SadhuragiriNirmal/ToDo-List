@@ -15,52 +15,47 @@ import dao.Dao;
 import dto.Task;
 import dto.User;
 
-@WebServlet("/addtask")
-public class AddTask  extends HttpServlet{
+@WebServlet("/bin")
+public class Bin extends HttpServlet{
 	
-	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-		String tasktitle = req.getParameter("tasktitle");
-		String taskdescription = req.getParameter("taskdescription");
-		String taskpriority = req.getParameter("taskpriority");
-		String taskduedate = req.getParameter("taskduedate");
-		
-		HttpSession ses = req.getSession();
-		User user = (User) ses.getAttribute("user");
-		int userid = user.getUserid();
-		
-
-		
-		Task task = new Task(0,tasktitle, taskdescription, taskpriority, taskduedate,"Not initiated",userid);
+		String taskid = req.getParameter("tid");
 		
 		Dao dao = new Dao();
 		
 		try {
+			if(taskid != null) {
+				
 			
-			int res = dao.createTask(task);
-			
+			int res = dao.delidInsert(Integer.parseInt(taskid));
 			if(res > 0) {
 				
-				List<Task> tasks = dao.getallTaskByuserid(userid);
+				HttpSession ses = req.getSession();
+			    User u = (User) ses.getAttribute("user");
+			  	List<Task> tasks = dao.getallTaskByuserid(u.getUserid());
 				ses.setAttribute("tasks", tasks);
 				List<Integer> tasksDid = dao.getDelid();
 				ses.setAttribute("tasksDid", tasksDid);
 				resp.sendRedirect("home.jsp");
 			}
-			else {
-				
-				resp.getWriter().println("Task created successfully");
-				
-			}
+			
+		  }
+		  else {
+			  
+			    User u = (User) req.getSession().getAttribute("user");
+			  	List<Task> tasks = dao.getallTaskByuserid(u.getUserid());
+				req.setAttribute("tasks", tasks);
+				List<Integer> tasksDid = dao.getDelid();
+				req.setAttribute("tasksDid", tasksDid);
+				req.getRequestDispatcher("bin.jsp").include(req, resp);
+		  }
+			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
-       
-		
-		
 	}
 
 }

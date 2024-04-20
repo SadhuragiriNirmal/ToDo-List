@@ -5,7 +5,7 @@ pageEncoding="ISO-8859-1"%>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Todo:Addtask</title>
+<title>Todo:Updatetask</title>
 <link rel="stylesheet" href="addtask.css">
 </head>
 <body>

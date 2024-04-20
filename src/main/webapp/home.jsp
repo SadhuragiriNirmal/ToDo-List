@@ -21,9 +21,8 @@
      
      <% 
      	response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "0");
-        HttpSession  ses = request.getSession();
+       
+        HttpSession  ses = request.getSession(false);
         User u = (User) ses.getAttribute("user");
         if(u == null) response.sendRedirect("login.jsp");
         else{
@@ -47,7 +46,7 @@
     <div id="uio">
         <div id="ui">
             <img alt="" src="data:image/jpeg;base64,<%= image%>" id="img1">
-            <div>
+            <div id="info">
 
                 <p>Name :</p><p><%= username%></p>
         
@@ -57,7 +56,10 @@
 
             </div>
             <img src="assert/projektmanagement.png" alt="" id="img2">
-            <form action="addtask.jsp" id ="add"><button name="tid" class="but" id="pluse">+</button></form>
+            <div id ="add">
+             <form action="bin" method="post"><button class="but">Bin</button></form>
+            <form action="addtask.jsp"method="post"><button name="tid" class="but" id="pluse">+</button></form>
+            </div>
         </div>
     </div>
     </section>
@@ -77,12 +79,20 @@
                        <th colspan="2">Edit</th>
                     </tr>
                 </thead>
-                 <% List<Task> tasks = (List)request.getAttribute("tasks");
+                 <% List<Task> tasks = (List)ses.getAttribute("tasks");
+                    
+                    List<Integer> tasksDid = (List)ses.getAttribute("tasksDid");
+                   
                     
                     int num = 1;
                     if(!tasks.isEmpty()){
       				for(Task task:tasks){
+      					//!tasksDid.contains(task.getTaskid())
+      					boolean res = tasksDid.contains(task.getTaskid());
+      		
+      				  if(!res){
       				
+      					  
       			%>
                 <tbody>
                     <tr>
@@ -92,7 +102,7 @@
             			<td><%= task.getTaskpriority()%></td>
             			<td><%= task.getTaskduedate()%></td>
             			<td><%= task.getTaskstatus()%></td>
-            			<td style="text-align: center;"><form action="delete" method="post"><button name="tid" value="<%=task.getTaskid()%>" class="but">Delete</button></form></td>
+            			<td style="text-align: center;"><form action="bin" method="post"><button name="tid" value="<%=task.getTaskid()%>" class="but">Delete</button></form></td>
             			<td style="text-align: center;">
             			<form action="update.jsp" method="post">
             				<button name="tid" value="<%=task.getTaskid()%>" class="but">Update</button>
@@ -105,13 +115,14 @@
             			</td>
                     </tr>
                 </tbody>
-                 <% } 
+                 <% }
+                    }
                     }
                     else{
                     	
                     %>
                     <h3 style="text-align: center; color: blue;">No Task Avilable</h3>
-                 <%
+                   <%
                     }
                     }%>
             </table>
